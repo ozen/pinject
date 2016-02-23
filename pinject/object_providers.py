@@ -61,11 +61,11 @@ class ObjectProvider(object):
 
     def provide_class(self, cls, injection_context,
                       direct_init_pargs, direct_init_kwargs):
-        if type(cls.__init__) is types.MethodType:
+        try:
             init_pargs, init_kwargs = self.get_injection_pargs_kwargs(
                 cls.__init__, injection_context,
                 direct_init_pargs, direct_init_kwargs)
-        else:
+        except Exception as e:
             init_pargs = direct_init_pargs
             init_kwargs = direct_init_kwargs
         return cls(*init_pargs, **init_kwargs)

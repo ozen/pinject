@@ -29,7 +29,7 @@ def get_name_and_loc(thing):
     try:
         if hasattr(thing, 'im_class'):
             class_name = '{0}.{1}'.format(
-                thing.im_class.__name__, thing.__name__)
+                thing.__self__.__class__.__name__, thing.__name__)
         else:
             class_name = '{0}.{1}'.format(
                 inspect.getmodule(thing).__name__, thing.__name__)

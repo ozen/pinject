@@ -153,10 +153,10 @@ class FunctionMaker(object):
         try:
             code = compile(src, '<string>', 'single')
             # print >> sys.stderr, 'Compiling %s' % src
-            exec code in evaldict
+            exec(code, evaldict)
         except:
-            print >> sys.stderr, 'Error in generated code:'
-            print >> sys.stderr, src
+            print('Error in generated code:', file=sys.stderr)
+            print(src, file=sys.stderr)
             raise
         func = evaldict[name]
         if addsource:
@@ -192,7 +192,7 @@ def decorator(caller, func=None):
     decorator(caller, func) decorates a function using a caller.
     """
     if func is not None: # returns a decorated function
-        evaldict = func.func_globals.copy()
+        evaldict = func.__globals__.copy()
         evaldict['_call_'] = caller
         evaldict['_func_'] = func
         return FunctionMaker.create(
@@ -216,7 +216,7 @@ def decorator(caller, func=None):
             callerfunc = caller.__call__.im_func
             doc = caller.__call__.__doc__
             fun = getfullargspec(callerfunc).args[1] # second arg
-        evaldict = callerfunc.func_globals.copy()
+        evaldict = callerfunc.__globals__.copy()
         evaldict['_call_'] = caller
         evaldict['decorator'] = decorator
         return FunctionMaker.create(

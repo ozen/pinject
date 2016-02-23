@@ -49,7 +49,7 @@ def _copy_args_to_fields(fn, decorator_name, field_prefix):
     def CopyThenCall(fn_to_wrap, self, *pargs, **kwargs):
         for index, parg in enumerate(pargs, start=1):
             setattr(self, field_prefix + arg_names[index], parg)
-        for kwarg, kwvalue in kwargs.iteritems():
+        for kwarg, kwvalue in kwargs.items():
             setattr(self, field_prefix + kwarg, kwvalue)
         fn_to_wrap(self, *pargs, **kwargs)
     return decorator.decorator(CopyThenCall, fn)

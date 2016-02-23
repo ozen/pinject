@@ -33,8 +33,8 @@ class PrototypeScopeTest(unittest.TestCase):
         scope = scoping.PrototypeScope()
         binding_key = binding_keys.new('unused')
         self.assertEqual(
-            range(10),
-            [scope.provide(binding_key, provider_fn) for _ in xrange(10)])
+            list(range(10)),
+            [scope.provide(binding_key, provider_fn) for _ in range(10)])
 
 
 class SingletonScopeTest(unittest.TestCase):

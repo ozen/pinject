@@ -89,7 +89,7 @@ def inject(arg_names=None, all_except=None):
             if not arg_value:
                 raise errors.EmptySequenceArgError(back_frame_loc, arg)
             if (not isinstance(arg_value, collections.Sequence) or
-                isinstance(arg_value, basestring)):
+                isinstance(arg_value, str)):
                 raise errors.WrongArgTypeError(
                     arg, 'sequence (of arg names)', type(arg_value).__name__)
     if arg_names is None and all_except is None:
